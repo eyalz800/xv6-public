@@ -1,0 +1,46 @@
+TARGET_NAME := sh
+TARGET_ABIS := x86
+OUTPUT_TYPE := executable
+OUTPUT_DIRECTORY_ROOT := ../out
+INCLUDE_DIRECTORIES := \
+	../../kernel/inc \
+	../inc \
+	$(shell find . -type d -name "inc") \
+	$(shell find . -type d -name "include")
+FLAGS := -pedantic -Wall -Wextra -Werror \
+	-nostdinc \
+	-fno-pic \
+	-static \
+	-fno-builtin \
+	-fno-strict-aliasing \
+	-fno-omit-frame-pointer \
+	-fno-stack-protector \
+	-fasm \
+	-nostdlib \
+	-L$(OUTPUT_DIRECTORY_ROOT)/$(CONFIGURATION_NAME)/$(TARGET_ABI) \
+	-Wl,-e,main \
+	-Wl,-Ttext,0 \
+	-Wl,-N \
+	-Wl,--build-id=none \
+	-Wl,-z,norelro
+FLAGS_DEBUG := -ggdb -D _DEBUG
+FLAGS_RELEASE := -D NDEBUG -D _NDEBUG \
+	-O2 \
+	-ffunction-sections \
+	-fdata-sections \
+	-fvisibility=hidden \
+	-Wl,--gc-sections
+CFLAGS := -std=c11
+CFLAGS_DEBUG :=
+CFLAGS_RELEASE :=
+CXXFLAGS := -std=c++14
+CXXFLAGS_DEBUG :=
+CXXFLAGS_RELEASE :=
+ASFLAGS := -x assembler-with-cpp -Wa,-divide
+ASFLAGS_DEBUG :=
+ASFLAGS_RELEASE :=
+STATIC_LIBRARIES := libulib.a
+SHARED_LIBRARIES :=
+STRIP_FLAGS := -s
+SOURCE_DIRECTORIES := ./src
+SOURCE_FILES :=
