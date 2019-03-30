@@ -11,7 +11,8 @@ PROJECTS = ulib \
 	mkdir \
 	rm \
 	sh \
-	wc
+	wc \
+	uthread
 
 all: 
 	@for project in $(PROJECTS) ; do \
